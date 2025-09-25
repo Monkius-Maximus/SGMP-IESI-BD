@@ -222,16 +222,34 @@ const NavigationManager = {
         const placeholder = document.createElement('div');
         placeholder.id = 'dynamic-placeholder';
         placeholder.className = 'page-content active';
-        placeholder.innerHTML = `
-            <div class="page-header">
-                <h2><i class="fas fa-cog"></i> ${this.getPageTitle(page)}</h2>
-                <p>Esta página está em desenvolvimento</p>
-            </div>
-            <div class="content-placeholder">
-                <i class="fas fa-tools"></i>
-                <p>Conteúdo do módulo ${this.getPageTitle(page)} será implementado em breve</p>
-            </div>
-        `;
+        // Create elements safely to prevent XSS
+        const pageHeader = document.createElement('div');
+        pageHeader.className = 'page-header';
+        
+        const headerH2 = document.createElement('h2');
+        headerH2.innerHTML = '<i class="fas fa-cog"></i> ';
+        headerH2.appendChild(document.createTextNode(this.getPageTitle(page)));
+        
+        const headerP = document.createElement('p');
+        headerP.textContent = 'Esta página está em desenvolvimento';
+        
+        pageHeader.appendChild(headerH2);
+        pageHeader.appendChild(headerP);
+        
+        const contentPlaceholder = document.createElement('div');
+        contentPlaceholder.className = 'content-placeholder';
+        
+        const placeholderIcon = document.createElement('i');
+        placeholderIcon.className = 'fas fa-tools';
+        
+        const placeholderP = document.createElement('p');
+        placeholderP.textContent = `Conteúdo do módulo ${this.getPageTitle(page)} será implementado em breve`;
+        
+        contentPlaceholder.appendChild(placeholderIcon);
+        contentPlaceholder.appendChild(placeholderP);
+        
+        placeholder.appendChild(pageHeader);
+        placeholder.appendChild(contentPlaceholder);
         
         mainContent.appendChild(placeholder);
     },
