@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGMP - Sistema de Gerenciamento e Manutenção Predial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-building"></i>
+                <h1>SGMP</h1>
+                <span class="subtitle">Sistema de Gestão Predial</span>
+            </div>
+            <div class="header-actions">
+                <div class="user-info">
+                    <i class="fas fa-user"></i>
+                    <span id="current-user">Síndico Admin</span>
+                </div>
+                <button class="btn-settings" title="Configurações">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="main-layout">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <button class="sidebar-toggle" id="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <span class="sidebar-title">Menu</span>
+            </div>
+            
+            <ul class="sidebar-menu">
+                <li class="menu-item active" data-page="dashboard">
+                    <a href="#dashboard">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-page="people">
+                    <a href="#people">
+                        <i class="fas fa-users"></i>
+                        <span>Pessoas</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#residents"><i class="fas fa-home"></i> Moradores</a></li>
+                        <li><a href="#employees"><i class="fas fa-hard-hat"></i> Funcionários</a></li>
+                        <li><a href="#syndics"><i class="fas fa-user-tie"></i> Síndicos</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item" data-page="units">
+                    <a href="#units">
+                        <i class="fas fa-building"></i>
+                        <span>Unidades</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-page="areas">
+                    <a href="#areas">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>Áreas Comuns</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-page="reservations">
+                    <a href="#reservations">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Reservas</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-page="service-orders">
+                    <a href="#service-orders">
+                        <i class="fas fa-tools"></i>
+                        <span>Ordens de Serviço</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-page="reports">
+                    <a href="#reports">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Relatórios</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content" id="main-content">
+            <!-- Dashboard Content -->
+            <div class="page-content active" id="dashboard-content">
+                <div class="page-header">
+                    <h2><i class="fas fa-chart-line"></i> Dashboard</h2>
+                    <p>Visão geral do sistema de gestão predial</p>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="summary-cards">
+                    <div class="card summary-card">
+                        <div class="card-icon residents">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="total-residents">152</h3>
+                            <p>Moradores Ativos</p>
+                            <span class="trend positive">
+                                <i class="fas fa-arrow-up"></i> +3 este mês
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card summary-card">
+                        <div class="card-icon units">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="occupied-units">89/100</h3>
+                            <p>Unidades Ocupadas</p>
+                            <span class="trend">
+                                <i class="fas fa-chart-pie"></i> 89% ocupação
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card summary-card">
+                        <div class="card-icon reservations">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="pending-reservations">7</h3>
+                            <p>Reservas Pendentes</p>
+                            <span class="trend warning">
+                                <i class="fas fa-clock"></i> Aguardando aprovação
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card summary-card">
+                        <div class="card-icon service-orders">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3 id="open-service-orders">12</h3>
+                            <p>Ordens Abertas</p>
+                            <span class="trend negative">
+                                <i class="fas fa-exclamation-triangle"></i> 3 urgentes
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts and Recent Activity -->
+                <div class="dashboard-grid">
+                    <div class="card chart-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-bar"></i> Ocupação por Bloco</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container" id="occupancy-chart">
+                                <!-- Chart will be rendered here -->
+                                <div class="chart-placeholder">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <p>Gráfico de ocupação por bloco</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card activity-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-clock"></i> Atividades Recentes</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-list" id="recent-activities">
+                                <div class="activity-item">
+                                    <div class="activity-icon new-resident">
+                                        <i class="fas fa-user-plus"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p><strong>João Silva</strong> foi cadastrado no Apto 302</p>
+                                        <span class="activity-time">2 horas atrás</span>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon reservation">
+                                        <i class="fas fa-calendar-plus"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p><strong>Maria Santos</strong> reservou o Salão de Festas</p>
+                                        <span class="activity-time">4 horas atrás</span>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon service-order">
+                                        <i class="fas fa-wrench"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p><strong>OS #123</strong> - Vazamento no Apto 105 foi resolvida</p>
+                                        <span class="activity-time">1 dia atrás</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h3><i class="fas fa-bolt"></i> Ações Rápidas</h3>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="openModal('new-resident')">
+                            <i class="fas fa-user-plus"></i>
+                            Novo Morador
+                        </button>
+                        <button class="btn btn-secondary" onclick="openModal('new-reservation')">
+                            <i class="fas fa-calendar-plus"></i>
+                            Nova Reserva
+                        </button>
+                        <button class="btn btn-warning" onclick="openModal('new-service-order')">
+                            <i class="fas fa-tools"></i>
+                            Nova OS
+                        </button>
+                        <button class="btn btn-info" onclick="generateReport()">
+                            <i class="fas fa-file-alt"></i>
+                            Gerar Relatório
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other page contents will be loaded here dynamically -->
+            <div class="page-content" id="people-content" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-users"></i> Gestão de Pessoas</h2>
+                    <p>Gerenciamento de moradores, funcionários e síndicos</p>
+                </div>
+                <div class="content-placeholder">
+                    <i class="fas fa-users"></i>
+                    <p>Conteúdo do módulo Pessoas será carregado aqui</p>
+                </div>
+            </div>
+
+            <div class="page-content" id="units-content" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-building"></i> Gestão de Unidades</h2>
+                    <p>Controle de apartamentos e blocos</p>
+                </div>
+                <div class="content-placeholder">
+                    <i class="fas fa-building"></i>
+                    <p>Conteúdo do módulo Unidades será carregado aqui</p>
+                </div>
+            </div>
+
+            <div class="page-content" id="areas-content" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-map-marked-alt"></i> Áreas Comuns</h2>
+                    <p>Gestão de espaços compartilhados</p>
+                </div>
+                <div class="content-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <p>Conteúdo do módulo Áreas Comuns será carregado aqui</p>
+                </div>
+            </div>
+
+            <div class="page-content" id="reservations-content" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-calendar-alt"></i> Sistema de Reservas</h2>
+                    <p>Agendamento e controle de reservas</p>
+                </div>
+                <div class="content-placeholder">
+                    <i class="fas fa-calendar-alt"></i>
+                    <p>Conteúdo do módulo Reservas será carregado aqui</p>
+                </div>
+            </div>
+
+            <div class="page-content" id="service-orders-content" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-tools"></i> Ordens de Serviço</h2>
+                    <p>Controle de manutenção e reparos</p>
+                </div>
+                <div class="content-placeholder">
+                    <i class="fas fa-tools"></i>
+                    <p>Conteúdo do módulo Ordens de Serviço será carregado aqui</p>
+                </div>
+            </div>
+
+            <div class="page-content" id="reports-content" style="display: none;">
+                <div class="page-header">
+                    <h2><i class="fas fa-chart-bar"></i> Relatórios</h2>
+                    <p>Análises e estatísticas do sistema</p>
+                </div>
+                <div class="content-placeholder">
+                    <i class="fas fa-chart-bar"></i>
+                    <p>Conteúdo do módulo Relatórios será carregado aqui</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner">
+            <i class="fas fa-circle-notch fa-spin"></i>
+            <p>Carregando...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
